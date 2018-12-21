@@ -1,0 +1,84 @@
+{% extends 'todo_app/base.html' %}
+
+{% block style %}
+a.btn:hover {
+     transform: scale(1.1);
+ }
+ a.btn {
+     transform: scale(0.8);
+     transition-duration: 0.5s;
+ }
+{% endblock style %}
+
+{% block content %}
+
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+      {{ message }}
+  </div>
+  {% endfor %}
+{% endif %}
+
+{% if all_list_items %}
+  <div class="row">
+    <div class="table-responsive col-md-8 offset-md-2">
+      <table class="table table-borderless mt-4 bg-light">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col"><center>Created At</center></th>
+            <th scope="col"><center>Last Updated</center></th>
+            <th scope="col"><center>Status</center></th>
+            <th scope="col"><center>Edit</center></th>
+            <th scope="col"><center>Delete</center></th>
+          </tr>
+        </thead>
+      	{% for items in all_list_items %}
+        <tbody>
+        	{% if items.completed %}
+          <tr class="table-secondary">
+            <td class="striker">{{ items.item }}</td>
+            <td><center>{{ items.created_at }}</center></td>
+            <td><center>{{ items.updated_at }}</center></td>
+            <td><center>
+              <a href="{% url 'uncross' items.id %}" class="btn btn-primary a-btn-slide-text"><span><strong>Uncross</strong></span></a>
+            </center></td>
+            <td><center>
+              <a href="{% url 'edit' items.id %}" class="btn btn-primary a-btn-slide-text"><span><strong><i class="fa fa-edit"></i></strong></span></a>
+            </center></td>
+            <td><center>
+              <a href="{% url 'delete' items.id %}" class="btn btn-primary a-btn-slide-text"><span><strong><i class="fa fa-trash"></i></strong></span></a>
+            </center></td>
+          </tr>
+          {% else %}
+          <tr>
+            <td>{{ items.item }}</td>
+            <td><center>{{ items.created_at }}</center></td>
+            <td><center>{{ items.updated_at }}</center></td>
+            <td><center>
+              <a href="{% url 'cross_off' items.id %}" class="btn btn-primary a-btn-slide-text"><span><strong>Cross Off</strong></span></a>
+            </center></td>      
+            <td><center>
+              <a href="{% url 'edit' items.id %}" class="btn btn-primary a-btn-slide-text"><span><strong><i class="fa fa-edit"></i></strong></span></a>
+            </center></td>
+            <td><center>
+              <a href="{% url 'delete' items.id %}" class="btn btn-primary a-btn-slide-text"><span><strong><i class="fa fa-trash"></i></strong></span></a>
+            </center></td>
+          </tr>
+          {% endif %}
+        </tbody>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+{% else %}
+<h2 class="display-4 text-center mt-5">Welcome to the To-do app!</h2>
+<h3 class="display-5 text-center">Start now!</h3>
+
+{% endif %}
+
+{% endblock content %}

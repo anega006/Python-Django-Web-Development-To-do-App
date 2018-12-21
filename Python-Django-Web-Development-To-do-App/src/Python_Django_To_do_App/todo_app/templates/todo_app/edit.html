@@ -1,0 +1,28 @@
+{% extends 'todo_app/base.html' %}
+
+{% block style %}
+.btn:hover {
+     transform: scale(1.1);
+ }
+ .btn {
+     transform: scale(0.8);
+     transition-duration: 0.5s;
+ }
+{% endblock style %}
+
+{% block content %}
+
+{% if item %}
+<div class="row mt-4">
+	<div class="col-md-6 offset-md-3">
+	<form class="form-inline my-2 my-lg-0" method="POST">
+	  {% csrf_token %}
+	  <input class="form-control mr-sm-2" type="text" placeholder="{{ item.item }}" value="{{ item.item }}" aria-label="Search" name="item">
+	  <input type="hidden" name="" value="{{ item.completed }}" name="completed">
+	  <button class="btn btn-primary a-btn-slide-text my-2 my-sm-0" type="submit"><span><strong>Update Item</strong></span></button>
+	</form>
+	</div>
+</div>
+{% endif %}
+
+{% endblock content %}
