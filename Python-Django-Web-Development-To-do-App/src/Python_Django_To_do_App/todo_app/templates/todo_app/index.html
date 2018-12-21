@@ -42,8 +42,8 @@ a.btn:hover {
         	{% if items.completed %}
           <tr class="table-secondary">
             <td class="striker">{{ items.item }}</td>
-            <td><center>{{ items.created_at }}</center></td>
-            <td><center>{{ items.updated_at }}</center></td>
+            <td><center>{{ items.created_at|timesince }} ago</center></td>
+            <td><center>{{ items.updated_at|timesince }} ago</center></td>
             <td><center>
               <a href="{% url 'uncross' items.id %}" class="btn btn-primary a-btn-slide-text"><span><strong>Uncross</strong></span></a>
             </center></td>
@@ -57,8 +57,8 @@ a.btn:hover {
           {% else %}
           <tr>
             <td>{{ items.item }}</td>
-            <td><center>{{ items.created_at }}</center></td>
-            <td><center>{{ items.updated_at }}</center></td>
+            <td><center>{{ items.created_at|timesince }} ago</center></td>
+            <td><center>{{ items.updated_at|timesince }} ago</center></td>
             <td><center>
               <a href="{% url 'cross_off' items.id %}" class="btn btn-primary a-btn-slide-text"><span><strong>Cross Off</strong></span></a>
             </center></td>      
